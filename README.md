@@ -6,7 +6,7 @@ focused on CRUD I didn't create any form of admin authentication
 
 ## frontend routes
 
-/ - create post
-/posts - timeline of all posts
-/post/id - show the post (if approved) based on its unique id
-/admin - approve and reject posts
+/ - create post  
+/posts - timeline of all posts  
+/post/id - show the post (if approved) based on its unique id  
+/admin - approve and reject posts  
