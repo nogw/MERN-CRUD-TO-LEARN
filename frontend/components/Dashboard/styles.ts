@@ -1,15 +1,173 @@
 import styled from 'styled-components';
 
+interface IModalProps {
+  isVisible: boolean
+}
+
+export const ModalBgc = styled.div<IModalProps>`
+  background-color: transparent;
+  position: fixed;
+  
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  height: 100vh;
+  width: 100vw;
+  
+  opacity: 0;
+
+  pointer-events: none;
+  transition: all 300ms ease;
+
+  ${({ isVisible }: any) => isVisible && `
+    pointer-events: all;
+    opacity: 1;
+    background-color: rgba(0,0,0,0.3);
+  `}
+`;
+
+export const ModalContainer = styled.div`
+  background-color: #f7f9fa;
+  border-radius: 12px;
+  position: relative;
+
+  padding: 20px;
+
+  max-height: 300px; 
+  width: 400px; 
+
+  h1 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    overflow: auto;
+    max-height: 200px; 
+    
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #919699;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover{
+      background: #919699;
+    }
+    ::-webkit-scrollbar-track{
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: inset 7px 10px 12px #f0f0f0;
+    }
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    cursor: pointer;
+    outline: none;
+
+    height: 20px;
+    width: 20px;
+
+    .icon {
+      font-size: 20px;
+    }
+  }
+`;
+
 export const Container = styled.div`
+  .counters {
+    display: grid;
+    grid-template-columns: repeat(3, calc(630px / 3));
+    grid-column-gap: 10px;
+    height: calc(650px / 4);
+    margin-bottom: 20px;
+
+    .item1, .item2, .item3 {
+      background-color: #f7f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: background 300ms ease;
+      transition: transform 150ms ease;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f3f3f3;
+        transform: scale(1.03);
+      }
+
+      &:active {
+        transform: scale(0.97);
+      }
+
+      h2 {
+        color: #202020;
+        font-size: 20px;
+        margin-bottom: auto;
+        -webkit-touch-callout: none; 
+        -webkit-user-select: none; 
+        -khtml-user-select: none; 
+        -moz-user-select: none; 
+        -ms-user-select: none; 
+        user-select: none;
+      }
+
+      h1 {
+        font-size: 45px;
+        -webkit-touch-callout: none; 
+        -webkit-user-select: none; 
+        -khtml-user-select: none; 
+        -moz-user-select: none; 
+        -ms-user-select: none; 
+        user-select: none;
+      }
+    }
+
+    .item1 {
+      h1 {
+        color: #2fa84f;
+      }
+    }
+
+    .item2 {
+      h1 {
+        color: #ea3d2f;
+      }
+    }
+
+    .item3 {
+      h1 {
+        color: #367bf5;
+      }
+    }
+  }
+
   .categories {
     display: flex;
     width: 650px;
-    border-bottom: 2px solid #acb0b2;
+    border-bottom: 1px solid #acb0b2;
     padding: 10px;
     padding-bottom: 8px;
 
     p {
       color: #919699;
+      font-size: 16px;
     }
 
     .nameAndDate {
@@ -39,6 +197,28 @@ export const Container = styled.div`
     }
   }
 
+  .posts {
+    max-height: 288px;
+    overflow: auto;
+    
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #919699;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover{
+      background: #919699;
+    }
+    ::-webkit-scrollbar-track{
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: inset 7px 10px 12px #f0f0f0;
+    }
+  }
+
   .post {
     display: flex;
     justify-content: space-between;
@@ -54,6 +234,10 @@ export const Container = styled.div`
       background-color: rgba(94,99,102, 0.04);
     }
 
+    p {
+      font-size: 16px;
+    }
+
     .userAndDate { 
       display: flex;
       flex-direction: column;
@@ -66,7 +250,7 @@ export const Container = styled.div`
       
       p:last-child {
         font-weight: 500;
-        color: #72a2f6;
+        color: #367bf5;
       }
     }
 
@@ -154,7 +338,7 @@ export const Container = styled.div`
       }
 
       .acceptPost {
-        color: #543fd3;
+        color: #367bf5;
       }
     }
   }

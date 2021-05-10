@@ -6,7 +6,7 @@ function Post({ data }) {
   return (
     <Container>
       {
-        data.accepted === "await" && (
+      data.accepted === "await" && (
           <div className="awaitApproved">
             <FaClock className="icon"/>
             <h1>your post is under review</h1>

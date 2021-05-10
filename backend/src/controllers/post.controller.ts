@@ -44,13 +44,27 @@ const create = ( req: Request, res: Response ) => {
   }
 }
 
-const getNotApprovedPosts = async ( req: Request, res: Response ) => {
+const getListPosts = async ( req: Request, res: Response ) => {
   try {
-    let post: any = await Post.find({ accepted: "await" }).exec()
+    const { option } = req.query
+    
+    let opc
+    if (option === "true") {
+      opc = true
+    } else if ( option === "false" ) {
+      opc = false
+    } else if ( option === "await" ) {
+      opc = "await"
+    }
+
+    let post: any = await Post.find({ accepted: opc }).exec()
+
+    console.log(opc)
+    console.log(typeof(opc))
 
     if (post) {
       return res.status(200).json({
-        message: post 
+        message: post
       })
     } else {
       return res.status(400).json({
@@ -87,8 +101,60 @@ const getPostById = async ( req: Request, res: Response ) => {
   }
 }
 
+const updatePost = async ( req: Request, res: Response ) => {
+  const slug = req.params.slug
+  
+  try {
+    let post: any = await Post.findOneAndUpdate(
+      { _id: slug }, 
+      { accepted: req.body.option }, 
+      { new: true, useFindAndModify: false },
+    ).exec()
+
+    if (post) {
+      return res.status(200).json({
+        message: post
+      })
+    } else {
+      return res.status(400).json({
+        error: "error when accepting post"
+      })
+    }
+  } catch (error) {
+    return res.status(400).json({
+      error: error
+    })
+  }
+}
+
+const getNumbers = async ( req: Request, res: Response ) => {
+  try {
+    let approved: any = await Post.find({ accepted: true }).exec()
+    let reject: any = await Post.find({ accepted: false }).exec()
+    let awaiting: any = await Post.find({ accepted: "await" }).exec()
+
+    if (approved && reject && awaiting) {
+      return res.status(200).json({
+        approved: approved.length,
+        reject: reject.length,
+        awaiting: awaiting.length
+      })
+    } else {
+      return res.status(400).json({
+        error: "an error occured"
+      })
+    }
+  } catch (error) {
+    return res.status(400).json({
+      error: error
+    })
+  }
+}
+
 export default {
   create,
-  getNotApprovedPosts,
-  getPostById
+  getListPosts,
+  getPostById,
+  updatePost,
+  getNumbers
 }

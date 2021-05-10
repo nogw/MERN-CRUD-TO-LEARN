@@ -30,10 +30,10 @@ export const Container = styled.div`
       transition: all 400ms ease;
 
       &:focus {
-        border: 2px solid #543fd3;
+        border: 2px solid #367bf5;
       
         & + label {
-          color: #543fd3
+          color: #367bf5
         }
       }
     }
@@ -50,7 +50,7 @@ export const Container = styled.div`
     padding: 14px 8px;
     cursor: pointer;
     margin: 4px;
-    background-color: #543fd3;
+    background-color: #367bf5;
     color: #fff;
     font-size: 13px;
     font-weight: 600;
@@ -84,7 +84,7 @@ export const Container = styled.div`
         margin-bottom: -2px;      
         margin-right: 12px;      
         font-size: 42.5px;
-        color: #543fd3;
+        color: #367bf5;
       }
     }
 
@@ -111,7 +111,7 @@ export const Container = styled.div`
         overflow: hidden;
         text-overflow: ellipsis;
 
-        color: #543fd3;
+        color: #367bf5;
         padding: 6px;
       }
 

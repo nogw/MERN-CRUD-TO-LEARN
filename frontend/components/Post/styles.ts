@@ -20,7 +20,7 @@ export const Container = styled.div`
     .icon {
       margin-right: 12px;      
       font-size: 42.5px;
-      color: #543fd3;
+      color: #367bf5;
     }
   }
 
