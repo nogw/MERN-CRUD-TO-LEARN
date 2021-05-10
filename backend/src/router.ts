@@ -1,12 +1,15 @@
 import express, { Router } from 'express'
-import userController from './controllers/user.controller'
+import postController from './controllers/post.controller'
 
 const router = express.Router()
 
-router.route("/user")
-  .post(userController.create)
+router.route("/post")
+  .post(postController.create)
 
-router.route("/user")
-  .get(userController.getNotAprovedUsers)
+router.route("/post")
+  .get(postController.getNotApprovedPosts)
+
+router.route("/post/:slug")
+  .get(postController.getPostById)
 
 export default router

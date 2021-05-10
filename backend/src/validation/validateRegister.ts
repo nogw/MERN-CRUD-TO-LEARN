@@ -5,20 +5,16 @@ const validateRegister = (data: any) => {
   const errors: any = {};
 
   data.name = !isEmpty(data.name) ? data.name : '';
-  data.email = !isEmpty(data.email) ? data.email : '';
+  data.title = !isEmpty(data.title) ? data.title : '';
   data.post = !isEmpty(data.post) ? data.post : '';
   data.date = !isEmpty(data.date) ? data.date : '';
 
   if (validator.isEmpty(data.name)) {
-    errors.name = 'Name field is required'
+    errors.name = 'name field is required'
   }
 
-  if (!validator.isEmail(data.email)) {
-    errors.email = `Email is invalid`
-  }
-
-  if (validator.isEmpty(data.email)) {
-    errors.email = 'Email is required'
+  if (validator.isEmpty(data.title)) {
+    errors.title = 'title is required'
   }
 
   if (validator.isEmpty(data.post)) {

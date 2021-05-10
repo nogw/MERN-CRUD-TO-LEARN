@@ -1,12 +1,12 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-const userModel = new Schema({
+const postModel = new Schema({
   name: {
     type: String,
     required: true,
   },
-  email: {
+  title: {
     type: String,
     required: true,
   },
@@ -15,8 +15,8 @@ const userModel = new Schema({
     required: true,
   },
   accepted: {
-    type: Boolean,
-    default: false,
+    type: Schema.Types.Mixed,
+    default: "await",
   },
   date: {
     type: String,
@@ -24,4 +24,4 @@ const userModel = new Schema({
   },
 })
 
-export default mongoose.model("User", userModel)
+export default mongoose.model("Post", postModel)

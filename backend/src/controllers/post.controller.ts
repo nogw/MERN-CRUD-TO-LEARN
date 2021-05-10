@@ -2,7 +2,7 @@ import express, { Response, Request } from 'express'
 import validateRegister from '../validation/validateRegister'
 import validateLogin from '../validation/validateLogin'
 import jwt from 'jsonwebtoken'
-import User from '../models/user.model'
+import Post from '../models/post.model'
 
 const create = ( req: Request, res: Response ) => {
   const { errors, isValid } = validateRegister(req.body)
@@ -14,17 +14,18 @@ const create = ( req: Request, res: Response ) => {
   }
 
   try {
-    let user = new User({
+    let post = new Post({
       name: req.body.name, 
-      email: req.body.email,
+      title: req.body.title,
       post: req.body.post,
       date: req.body.date,
     })
   
-    user.save()
-    .then((user: any) => {
+    post.save()
+    .then((post: any) => {
       let token = jwt.sign({
-        name: user.name
+        name: post.name,
+        id: post._id
       }, process.env.JWT_SECRET)
   
       return res.status(200).json({
@@ -43,17 +44,17 @@ const create = ( req: Request, res: Response ) => {
   }
 }
 
-const getNotAprovedUsers = ( req: Request, res: Response ) => {
+const getNotApprovedPosts = async ( req: Request, res: Response ) => {
   try {
-    let user: any = User.find({ accepted: false }).exec()
+    let post: any = await Post.find({ accepted: "await" }).exec()
 
-    if (user.length) {
+    if (post) {
       return res.status(200).json({
-        message: user 
+        message: post 
       })
     } else {
       return res.status(400).json({
-        error: "0 users"
+        error: "0 posts",
       })
     }
   } catch (error) {
@@ -63,7 +64,31 @@ const getNotAprovedUsers = ( req: Request, res: Response ) => {
   }
 }
 
+const getPostById = async ( req: Request, res: Response ) => {
+  const slug = req.params.slug
+  
+  try {
+    let post: any = await Post.findById(req.params.slug).exec()
+
+    if (post) {
+      return res.status(200).json({
+        message: post,
+      })
+    } else {
+      return res.status(400).json({
+        error: "post not exists",
+      })
+    }
+
+  } catch (error) {
+    return res.status(400).json({
+      error: error
+    })
+  }
+}
+
 export default {
   create,
-  getNotAprovedUsers
+  getNotApprovedPosts,
+  getPostById
 }
